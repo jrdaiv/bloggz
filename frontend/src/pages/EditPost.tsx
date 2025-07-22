@@ -51,7 +51,7 @@ const EditPost = () => {
         throw new Error(errorData.error || "Failed to update post");
       }
 
-      navigate("/home");
+      navigate(`${backendUrl}/home`);
     } catch (err: any) {
       console.error(err);
       setError(err.message);
