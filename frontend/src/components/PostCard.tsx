@@ -17,9 +17,12 @@ interface PostCardProps {
 export default function PostCard({ post, onDelete }: PostCardProps) {
   const navigate = useNavigate();
 
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+
   const handleDelete = async (postId: string) => {
     try {
-      const response = await fetch(`/api/posts/${postId}`, {
+      const response = await fetch(`${backendUrl}/api/posts/${postId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,

@@ -14,9 +14,12 @@ const AuthForm = () => {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const url = `/api/auth/${isLogin ? "login" : "register"}`;
+    const url = `${backendUrl}/api/auth/${isLogin ? "login" : "register"}`;
     const data = isLogin
       ? { email, password }
       : { name, username, email, password };

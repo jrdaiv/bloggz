@@ -9,10 +9,13 @@ const EditPost = () => {
   const [content, setContent] = useState("");
   const [error, setError] = useState<string | null>(null); // Added for error display
 
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await fetch(`/api/posts/${id}`, {
+        const res = await fetch(`${backendUrl}/api/posts/${id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -34,7 +37,7 @@ const EditPost = () => {
     e.preventDefault();
     setError(null);
     try {
-      const res = await fetch(`/api/posts/${id}`, {
+      const res = await fetch(`${backendUrl}/api/posts/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

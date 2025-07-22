@@ -5,10 +5,13 @@ import { Post } from '@/types';
 export default function Home() {
   const [posts, setPosts] = useState<Post[]>([]);
 
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('/api/posts');
+        const response = await fetch(`${backendUrl}/api/posts`);
         if (!response.ok) throw new Error('Failed to fetch posts');
         const data = await response.json();
         setPosts(data); // No transformation needed, use _id directly

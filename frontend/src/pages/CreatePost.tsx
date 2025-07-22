@@ -7,11 +7,14 @@ export default function CreatePost() {
   const [error, setError] = useState<string | null>(null); // Added for error display
   const navigate = useNavigate();
 
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
     try {
-      const response = await fetch("/api/posts", {
+      const response = await fetch(`${backendUrl}/api/posts`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
