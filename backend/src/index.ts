@@ -12,7 +12,7 @@ const app = express();
 
 connectDB();
 
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors({ origin: "https://bloggz-5b8u.onrender.com" }));
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
