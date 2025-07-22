@@ -54,7 +54,7 @@ router.put("/:id", authMiddleware, async (req, res) => {
     if (!post) return res.status(404).json({ error: "Post not found" });
 
     // @ts-ignore
-    if (post.author !== req.userId) {
+    if (post.author !== req.user.id) {
       return res.status(403).json({ error: "Unauthorized to edit this post" });
     }
 
