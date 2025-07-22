@@ -15,15 +15,6 @@ connectDB();
 app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
 
-const frontendPath = path.resolve(__dirname, "..", "frontend", "dist");
-
-app.use(express.static(frontendPath));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(frontendPath, "index.html"));
-});
-
-
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
 
