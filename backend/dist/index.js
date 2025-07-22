@@ -15,12 +15,15 @@ const app = (0, express_1.default)();
 (0, db_1.default)();
 app.use((0, cors_1.default)({ origin: "http://localhost:5173" }));
 app.use(express_1.default.json());
-app.use(express_1.default.static(path_1.default.join(__dirname, "../frontend/dist")));
-app.get("*", (req, res) => {
-    res.sendFile(path_1.default.join(__dirname, "../frontend/dist", "index.html"));
+app.use(express_1.default.static(path_1.default.join(__dirname, '..', 'frontend', 'dist')));
+app.get('*', (req, res) => {
+    res.sendFile(path_1.default.join(__dirname, '..', 'frontend', 'dist', 'index.html'));
 });
 app.use("/api/auth", auth_1.default);
 app.use("/api/posts", posts_1.default);
+app.get("/", (req, res) => {
+    res.send("Backend is live!");
+});
 app.get('/api/test', (req, res) => res.json({ message: 'Proxy working' })); // Test route
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

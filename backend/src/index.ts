@@ -15,14 +15,18 @@ connectDB();
 app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, "../frontend/dist")));
+app.use(express.static(path.join(__dirname, '..', 'frontend', 'dist')));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/dist", "index.html"));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'frontend', 'dist', 'index.html'));
 });
 
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
+
+app.get("/", (req, res) => {
+  res.send("Backend is live!");
+});
 
 app.get('/api/test', (req, res) => res.json({ message: 'Proxy working' })); // Test route
 
