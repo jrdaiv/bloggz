@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db";
 import authRoutes from "./routes/auth";
 import postRoutes from "./routes/posts";
+import path from "path";
 
 dotenv.config();
 
@@ -13,6 +14,12 @@ connectDB();
 
 app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
+
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist", "index.html"));
+});
 
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
