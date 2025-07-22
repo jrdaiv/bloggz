@@ -1,6 +1,6 @@
-import { Button, Form, Input, Textarea } from "@heroui/react";
+import { Button, Input, Textarea } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Form } from "react-router-dom";
 
 const EditPost = () => {
   const { id } = useParams<{ id: string }>();
@@ -75,19 +75,16 @@ const EditPost = () => {
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Title"
           required
-          className="w-full border-white/40 rounded-lg p-3 bg-transparent text-white drop-shadow-md"
-        />
+          className="w-full border-white/40 rounded-lg p-3 bg-transparent text-white drop-shadow-md" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined}        />
         <Textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="Content"
           rows={8}
-          className="w-full border-white/40 rounded-lg p-3 bg-transparent text-white drop-shadow-md"
-        />
+          className="w-full border-white/40 rounded-lg p-3 bg-transparent text-white drop-shadow-md" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}        />
         <Button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg drop-shadow-md"
-        >
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg drop-shadow-md" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}        >
           Update Post
         </Button>
       </Form>

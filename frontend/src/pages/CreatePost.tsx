@@ -1,5 +1,4 @@
-import { Button } from "@heroui/button";
-import { Input, Textarea } from "@heroui/input";
+import { Button, Input, Textarea } from "@material-tailwind/react";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -40,29 +39,22 @@ export default function CreatePost() {
           <Input
             placeholder="Title"
             value={formData.title}
-            onChange={(e) =>
-              setFormData({ ...formData, title: e.target.value })
-            }
+            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
             required
-            className="w-full border-white/40 rounded-lg p-3 bg-transparent text-white placeholder-white/70 focus:ring-2 focus:ring-blue-500 drop-shadow-md"
-          />
+            className="w-full border-white/40 rounded-lg p-3 bg-transparent text-white placeholder-white/70 focus:ring-2 focus:ring-blue-500 drop-shadow-md" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined}          />
         </div>
         <div className="w-full">
           <Textarea
             placeholder="Content"
             rows={8}
             value={formData.content}
-            onChange={(e) =>
-              setFormData({ ...formData, content: e.target.value })
-            }
+            onChange={(e) => setFormData({ ...formData, content: e.target.value })}
             required
-            className="w-full border-white/40 rounded-lg p-3 bg-transparent text-white placeholder-white/70 focus:ring-2 focus:ring-blue-500 drop-shadow-md"
-          />
+            className="w-full border-white/40 rounded-lg p-3 bg-transparent text-white placeholder-white/70 focus:ring-2 focus:ring-blue-500 drop-shadow-md" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          />
         </div>
         <Button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg drop-shadow-md"
-        >
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg drop-shadow-md" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}        >
           Create Post
         </Button>
       </form>

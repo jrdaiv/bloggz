@@ -1,6 +1,6 @@
 // frontend/src/components/AuthForm.tsx
 import { useAuth } from "@/context/AuthContext";
-import { Button, Input } from "@heroui/react";
+import { Button, Input } from "@material-tailwind/react";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -71,8 +71,7 @@ const AuthForm = () => {
               onChange={(e) => setName(e.target.value)}
               placeholder="Name"
               required
-              className="w-full border-white/30 rounded-md p-2 bg-transparent text-white placeholder-white/70 focus:ring-2 focus:ring-blue-500 drop-shadow-md"
-            />
+              className="w-full border-white/30 rounded-md p-2 bg-transparent text-white placeholder-white/70 focus:ring-2 focus:ring-blue-500 drop-shadow-md" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined}            />
 
             <Input
               type="text"
@@ -80,8 +79,7 @@ const AuthForm = () => {
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Username"
               required
-              className="w-full border-white/30 rounded-md p-2 bg-transparent text-white placeholder-white/70 focus:ring-2 focus:ring-blue-500 drop-shadow-md"
-            />
+              className="w-full border-white/30 rounded-md p-2 bg-transparent text-white placeholder-white/70 focus:ring-2 focus:ring-blue-500 drop-shadow-md" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined}            />
 
           </>
         )}
@@ -91,8 +89,7 @@ const AuthForm = () => {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
           required
-          className="w-full border-white/30 rounded-md p-2 bg-transparent text-white placeholder-white/70 focus:ring-2 focus:ring-blue-500 drop-shadow-md"
-        />
+          className="w-full border-white/30 rounded-md p-2 bg-transparent text-white placeholder-white/70 focus:ring-2 focus:ring-blue-500 drop-shadow-md" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined}        />
 
         <Input
           type="password"
@@ -100,28 +97,24 @@ const AuthForm = () => {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
           required
-          className="w-full border-white/30 rounded-md p-2 bg-transparent text-white placeholder-white/70 focus:ring-2 focus:ring-blue-500 drop-shadow-md"
-        />
+          className="w-full border-white/30 rounded-md p-2 bg-transparent text-white placeholder-white/70 focus:ring-2 focus:ring-blue-500 drop-shadow-md" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined}        />
 
         <Button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-md drop-shadow-md"
-        >
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-md drop-shadow-md" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}        >
           {isLogin ? "Login" : "Sign Up"}
         </Button>
 
         <Button 
           type="submit"
           onClick={handleDemoLogin}
-          className="w-full bg-gray-500 text-white p-2 rounded"
-          >
+          className="w-full bg-gray-500 text-white p-2 rounded" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
           Demo Login
         </Button>
 
         <Button
           onClick={() => setIsLogin(!isLogin)}
-          className="w-full bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 rounded-md drop-shadow-md"
-        >
+          className="w-full bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 rounded-md drop-shadow-md" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}        >
           Switch to {isLogin ? "Sign Up" : "Login"}
         </Button>
 
