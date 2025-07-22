@@ -5,7 +5,7 @@ import CreatePost from "./pages/CreatePost";
 import LandingPage from "./pages/LandingPage";
 import Auth from "./pages/Auth";
 import EditPost from "./pages/EditPost";
-import '/Users/kidx_/Projects/blog-app/frontend/public/Bloggz-Background.jpeg'
+
 
 
 function App() {
