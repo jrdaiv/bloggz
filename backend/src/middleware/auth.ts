@@ -32,7 +32,7 @@ const authMiddleware = async (req: AuthRequest, res: Response, next: NextFunctio
     console.log('Authenticated user:', { id: user._id.toString(), username: user.username });
     req.user = { id: user._id.toString(), username: user.username };
     next();
-  } catch (error) {
+  } catch (error: any) {
     console.error('Token verification error:', error.message);
     res.status(401).json({ error: 'Invalid token' });
   }
