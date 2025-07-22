@@ -12,8 +12,12 @@ const posts_1 = __importDefault(require("./routes/posts"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 (0, db_1.default)();
-app.use((0, cors_1.default)({ origin: "http://localhost:5173" }));
+app.use((0, cors_1.default)({ origin: "https://bloggz-5b8u.onrender.com", credentials: true }));
 app.use(express_1.default.json());
+app.use((req, res, next) => {
+    console.log(`[INCOMING] ${req.method} ${req.url}`);
+    next();
+});
 app.use("/api/auth", auth_1.default);
 app.use("/api/posts", posts_1.default);
 app.get("/", (req, res) => {
