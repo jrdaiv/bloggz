@@ -12,12 +12,22 @@ const EditPost = () => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   if (!id) {
-  return <div>Post ID is missing</div>;
-}
+    return <div>Post ID is missing</div>;
+  }
 
   useEffect(() => {
     const fetchPost = async () => {
-      console.log("Fetching post with id:", id, "Token:", localStorage.getItem("token"));
+      console.log(
+        "Fetching post with id:",
+        id,
+        "Token:",
+        localStorage.getItem("token")
+      );
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setError("Authentication token missing");
+        return;
+      }
       try {
         const res = await fetch(`${backendUrl}/api/posts/${id}`, {
           headers: {

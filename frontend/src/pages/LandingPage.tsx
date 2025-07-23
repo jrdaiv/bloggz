@@ -14,7 +14,7 @@ export default function LandingPage() {
           Share your stories, connect with others, and explore a world of ideas.
         </p>
         <Button
-          onClick={() => navigate("/login")}
+          onClick={() => navigate("/auth")}
           className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 sm:py-3 sm:px-8 rounded-lg drop-shadow-md"
           placeholder={undefined}
           onPointerEnterCapture={undefined}
