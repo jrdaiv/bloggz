@@ -11,9 +11,9 @@ const EditPost = () => {
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-
   useEffect(() => {
     const fetchPost = async () => {
+      console.log("Fetching post with id:", id, "Token:", localStorage.getItem("token"));
       try {
         const res = await fetch(`${backendUrl}/api/posts/${id}`, {
           headers: {
@@ -29,7 +29,6 @@ const EditPost = () => {
         setError("Failed to load post");
       }
     };
-
     fetchPost();
   }, [id]);
 
@@ -51,7 +50,7 @@ const EditPost = () => {
         throw new Error(errorData.error || "Failed to update post");
       }
 
-      navigate(`${backendUrl}/home`);
+      navigate(`/home`);
     } catch (err: any) {
       console.error(err);
       setError(err.message);
@@ -78,16 +77,27 @@ const EditPost = () => {
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Title"
           required
-          className="w-full border-white/40 rounded-lg p-3 bg-transparent text-white drop-shadow-md" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined}        />
+          className="w-full border-white/40 rounded-lg p-3 bg-transparent text-white drop-shadow-md"
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+          crossOrigin={undefined}
+        />
         <Textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="Content"
           rows={8}
-          className="w-full border-white/40 rounded-lg p-3 bg-transparent text-white drop-shadow-md" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}        />
+          className="w-full border-white/40 rounded-lg p-3 bg-transparent text-white drop-shadow-md"
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        />
         <Button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg drop-shadow-md" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}        >
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg drop-shadow-md"
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
           Update Post
         </Button>
       </Form>

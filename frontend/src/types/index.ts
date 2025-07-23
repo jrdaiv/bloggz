@@ -6,7 +6,7 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
 
 // client/src/types/index.ts
 export interface User {
-  id: string;
+  _id: string;
   name: string;
   username: string;
   email: string;

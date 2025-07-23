@@ -24,7 +24,7 @@ const AuthForm = () => {
     const data = isLogin
       ? { email, password }
       : { name, username, email, password };
-
+      console.log("Sending data:", data)
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -32,7 +32,6 @@ const AuthForm = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-        credentials: "include"
       });
       const result = await response.json();
       if (!response.ok)
@@ -41,12 +40,13 @@ const AuthForm = () => {
         );
       setError(null);
       login(result.token);
+      console.log("Login successful, token:", result.token);
       navigate("/home");
       console.log(`${email} Successfully logged in.`);
       // alert("Success: " + email);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Auth error:", error);
-      setError("Something went wrong");
+      setError(error.message || "Something went wrong");
     }
   };
 
