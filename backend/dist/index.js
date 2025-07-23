@@ -14,11 +14,11 @@ const app = (0, express_1.default)();
 (0, db_1.default)();
 const allowedOrigins = [
     "http://localhost:5173",
-    "https://bloggz-1.onrender.com"
+    "https://bloggz-1.onrender.com",
+    "https://bloggz-5b8u.onrender.com"
 ];
 app.use((0, cors_1.default)({
     origin: allowedOrigins,
-    credentials: true
 }));
 app.use(express_1.default.json());
 app.use((req, res, next) => {

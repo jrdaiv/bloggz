@@ -32,6 +32,7 @@ router.post("/register", (req, res) => __awaiter(void 0, void 0, void 0, functio
         }
         const user = new User_1.default({ name, username, email, password });
         yield user.save();
+        console.log("User saved:", user._id);
         const token = jsonwebtoken_1.default.sign({ id: user._id }, process.env.JWT_SECRET, {
             expiresIn: "1h",
         });

@@ -14,12 +14,12 @@ connectDB();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://bloggz-1.onrender.com"
+  "https://bloggz-1.onrender.com",
+  "https://bloggz-5b8u.onrender.com"
 ];
 
 app.use(cors({
   origin: allowedOrigins,
-  credentials: true
 }));
 
 app.use(express.json());

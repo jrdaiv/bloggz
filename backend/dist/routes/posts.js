@@ -65,7 +65,7 @@ router.put("/:id", auth_1.default, (req, res) => __awaiter(void 0, void 0, void 
         if (!post)
             return res.status(404).json({ error: "Post not found" });
         // @ts-ignore
-        if (post.author !== req.userId) {
+        if (post.author !== req.user.username) {
             return res.status(403).json({ error: "Unauthorized to edit this post" });
         }
         post.title = title;
