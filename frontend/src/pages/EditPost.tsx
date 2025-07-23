@@ -1,6 +1,6 @@
 import { Button, Input, Textarea } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
-import { useParams, useNavigate, Form } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const EditPost = () => {
   const { id } = useParams<{ id: string }>();
@@ -23,6 +23,7 @@ const EditPost = () => {
         "Token:",
         localStorage.getItem("token")
       );
+      console.log("EditPost Loaded");
       const token = localStorage.getItem("token");
       if (!token) {
         setError("Authentication token missing");
@@ -78,7 +79,7 @@ const EditPost = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-transparent px-4 sm:px-6 pt-16 sm:pt-20">
-      <Form
+      <form
         onSubmit={handleUpdate}
         className="space-y-6 bg-transparent/10 backdrop-blur-md p-8 rounded-xl border border-white/30 w-full max-w-lg"
       >
@@ -119,7 +120,7 @@ const EditPost = () => {
         >
           Update Post
         </Button>
-      </Form>
+      </form>
     </div>
   );
 };

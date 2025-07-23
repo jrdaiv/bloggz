@@ -27,6 +27,7 @@ export default function PostCard({ post, onDelete }: PostCardProps) {
   const handleEdit = (_id: string) => {
     console.log("Navigating to:", `/edit/${post._id}`);
     console.log(post);
+    console.log("EditPost Loaded");
     try {
       navigate(`/edit/${post._id}`);
     } catch (err) {
