@@ -11,6 +11,10 @@ const EditPost = () => {
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
+  if (!id) {
+  return <div>Post ID is missing</div>;
+}
+
   useEffect(() => {
     const fetchPost = async () => {
       console.log("Fetching post with id:", id, "Token:", localStorage.getItem("token"));
@@ -35,6 +39,7 @@ const EditPost = () => {
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+
     try {
       const res = await fetch(`${backendUrl}/api/posts/${id}`, {
         method: "PUT",
@@ -42,7 +47,11 @@ const EditPost = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({ title, content }),
+        body: JSON.stringify({
+          title,
+          content,
+          _id: id, // Optional: pass _id if your backend requires it in the body
+        }),
       });
 
       if (!res.ok) {
