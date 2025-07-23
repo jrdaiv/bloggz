@@ -15,7 +15,12 @@ export default function NavigationBar() {
   };
 
   return (
-    <Navbar className="bg-transparent backdrop-blur-md w-full " placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+    <Navbar
+      className="bg-transparent backdrop-blur-md w-full "
+      placeholder={undefined}
+      onPointerEnterCapture={undefined}
+      onPointerLeaveCapture={undefined}
+    >
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo or Placeholder */}
         <div className="flex items-center">
@@ -32,20 +37,34 @@ export default function NavigationBar() {
           {isLoggedIn ? (
             <>
               <Link to="/create">
-                <Button className="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-md drop-shadow-md" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                <Button
+                  className="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-md drop-shadow-md"
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
                   Create Post
                 </Button>
               </Link>
               <Button
                 onClick={handleLogout}
-                className="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-md drop-shadow-md" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}              >
+                className="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-md drop-shadow-md"
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
                 Logout
               </Button>
             </>
           ) : (
             !isAuthPage && (
               <Link to="/auth">
-                <Button className="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-md drop-shadow-md" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                <Button
+                  className="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-md drop-shadow-md"
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
                   Login / Signup
                 </Button>
               </Link>

@@ -22,8 +22,13 @@ interface PostCardProps {
 
 export default function PostCard({ post, onDelete }: PostCardProps) {
   const navigate = useNavigate();
-
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+  const handleEdit = (_id: string) => {
+    console.log("Navigating to:", `/edit/${post._id}`);
+    console.log(post)
+    navigate(`/edit/${post._id}`);
+  };
 
   const handleDelete = async (postId: string) => {
     try {
@@ -40,7 +45,7 @@ export default function PostCard({ post, onDelete }: PostCardProps) {
       }
 
       if (onDelete) {
-        onDelete(postId); // Notify parent to remove post
+        onDelete(postId);
       }
     } catch (error) {
       console.error("Failed to delete post", error);
@@ -83,10 +88,7 @@ export default function PostCard({ post, onDelete }: PostCardProps) {
           onPointerLeaveCapture={undefined}
         >
           <Button
-            onClick={() => {
-              console.log("Navigating to:", `/edit/${post._id}`);
-              navigate(`/edit/${post._id}`);
-            }}
+            onClick={() => handleEdit(post._id)}
             className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md drop-shadow-md"
             placeholder={undefined}
             onPointerEnterCapture={undefined}
