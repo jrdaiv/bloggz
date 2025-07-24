@@ -5,12 +5,15 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "./dist",
-    "rootDir": "./src",
+    "rootDir": "./",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "typeRoots": ["./node_modules/@types", "./types"],
+    "resolveJsonModule": true
+
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "scripts/**/*", "scripts"],
   "exclude": ["node_modules"]
 }

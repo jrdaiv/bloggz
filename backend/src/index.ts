@@ -4,7 +4,8 @@ import dotenv from "dotenv";
 import connectDB from "./config/db";
 import authRoutes from "./routes/auth";
 import postRoutes from "./routes/posts";
-import path from "path";
+import profileRoutes from "./routes/profile"
+import userRoutes from "./routes/user";
 
 dotenv.config();
 
@@ -29,8 +30,16 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use((req, res, next) => {
+  console.log(`[${req.method}] ${req.originalUrl}`);
+  next();
+});
+
+app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
+app.use("/api/profile", profileRoutes)
+
 
 app.get("/", (req, res) => {
   res.send("Backend is live!");

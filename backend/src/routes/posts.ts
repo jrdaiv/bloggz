@@ -36,6 +36,9 @@ router.post("/", authMiddleware, async (req, res) => {
     if (!title || !content) {
       return res.status(400).json({ error: "Title and content are required" });
     }
+    if (!user || !user.username) {
+      return res.status(401).json({ error: "Unauthorized: user not found" });
+    }
     const post = new Post({ title, content, author: user.username });
     await post.save();
     res.json(post);
