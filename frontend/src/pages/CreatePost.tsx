@@ -21,7 +21,6 @@ export default function CreatePost() {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify(formData),
-        credentials: "include"
       });
       if (!response.ok) {
         const errorData = await response.json();

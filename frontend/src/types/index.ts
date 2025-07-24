@@ -4,12 +4,14 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
 };
 
-// client/src/types/index.ts
+// /src/types/index.ts
 export interface User {
   _id: string;
   name: string;
   username: string;
   email: string;
+  avatarUrl: string;
+  bio: string;
 }
 
 export interface Post {

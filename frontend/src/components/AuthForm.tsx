@@ -12,6 +12,7 @@ const AuthForm = () => {
   const [username, setUsername] = useState("");
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const handleLogin = async () => {
