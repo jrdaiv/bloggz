@@ -7,15 +7,33 @@ import User from "../models/User";
 
 const router = express.Router();
 
+router.get("/test", (req, res) => {
+  res.json({ message: "Profile route is working!" });
+});
+
+router.get("/ping", (req, res) => {
+  console.log("Ping route hit");
+  res.json({ msg: "Profile route is active" });
+});
+
 router.get("/me", authMiddleware, async (req, res) => {
   try {
-    const profile = await Profile.findOne({ user: req.user.id }).populate("user", ["username", "email"]);
+    const profile = await Profile.findOne({ user: req.user.id })
+      .populate("user", ["name", "username", "email", "avatarUrl", "bio"]);
 
     if (!profile) {
       return res.status(404).json({ msg: "Profile not found" });
     }
 
-    res.json(profile);
+    // Merge profile and user fields for frontend ease
+    const responseData = {
+      ...profile.toObject(),
+      ...(typeof profile.user === "object" && profile.user !== null && "toObject" in profile.user
+        ? (profile.user as any).toObject()
+        : {}),
+    };
+
+    res.json(responseData);
   } catch (err: any) {
     console.error(err.message);
     res.status(500).send("Server Error");
