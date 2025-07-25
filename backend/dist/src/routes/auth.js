@@ -12,57 +12,54 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// backend/src/routes/auth.ts
+// routes/auth.ts
 const express_1 = __importDefault(require("express"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const User_1 = __importDefault(require("../models/User"));
 const router = express_1.default.Router();
-// Register
-router.post("/register", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("Registration request received at:", new Date().toISOString(), "with body:", req.body);
+// POST /api/auth/register
+router.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { name, username, email, password } = req.body;
+    if (!name || !username || !email || !password) {
+        return res.status(400).json({ error: 'All fields are required' });
+    }
     try {
-        const { name, username, email, password } = req.body;
-        if (!name || !username || !email || !password) {
-            return res.status(400).json({ error: "All fields are required" });
-        }
         const existingUser = yield User_1.default.findOne({ $or: [{ email }, { username }] });
         if (existingUser) {
-            return res.status(400).json({ error: "Email or username already exists" });
+            return res.status(400).json({ error: 'Email or username already exists' });
         }
         const user = new User_1.default({ name, username, email, password });
         yield user.save();
-        console.log("User saved:", user._id);
         const token = jsonwebtoken_1.default.sign({ id: user._id }, process.env.JWT_SECRET, {
-            expiresIn: "1h",
+            expiresIn: '1h',
         });
         res.json({ token });
     }
     catch (error) {
-        console.error("Registration error:", error);
-        res.status(400).json({ error: "Registration failed" });
+        console.error('[AUTH] Registration error:', error);
+        res.status(500).json({ error: 'Registration failed' });
     }
 }));
-// Login
-router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("Login request received at:", new Date().toISOString(), "with body:", req.body);
+// POST /api/auth/login
+router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email, password } = req.body;
+    if (!email || !password) {
+        return res.status(400).json({ error: 'Email and password are required' });
+    }
     try {
-        const { email, password } = req.body;
-        if (!email || !password) {
-            return res.status(400).json({ error: "Email and password are required" });
-        }
         const user = yield User_1.default.findOne({ email });
         if (!user || !(yield bcryptjs_1.default.compare(password, user.password))) {
-            return res.status(401).json({ error: "Invalid credentials" });
+            return res.status(401).json({ error: 'Invalid credentials' });
         }
         const token = jsonwebtoken_1.default.sign({ id: user._id }, process.env.JWT_SECRET, {
-            expiresIn: "1h",
+            expiresIn: '1h',
         });
         res.json({ token });
     }
     catch (error) {
-        console.error("Login error:", error);
-        res.status(400).json({ error: "Login failed" });
+        console.error('[AUTH] Login error:', error);
+        res.status(500).json({ error: 'Login failed' });
     }
 }));
 exports.default = router;

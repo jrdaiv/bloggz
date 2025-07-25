@@ -1,55 +1,45 @@
-import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
-import User from '../models/User';
+import jwt from "jsonwebtoken";
+import { Request, Response, NextFunction } from "express";
+import User from "../models/User";
 
-interface AuthRequest extends Request {
-  user?: any;
-}
+const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+  console.log("🔐 Middleware triggered");
 
-const authMiddleware = async (req: AuthRequest, res: Response, next: NextFunction) => {
-  const authHeader = req.get('Authorization');
-  const token = authHeader?.startsWith('Bearer ') ? authHeader.replace('Bearer ', '') : undefined;
-
-  if (!token) {
-    console.log('No token provided for request:', req.method, req.url);
-    return res.status(401).json({ error: 'No token provided' });
-  }
+  const token = req.header("Authorization")?.replace("Bearer ", "");
+  if (!token) return res.status(401).json({ message: "No token provided" });
 
   try {
-    const secret = process.env.JWT_SECRET;
+    if (!process.env.JWT_SECRET) {
+      throw new Error("JWT_SECRET is not defined in environment variables");
+    }
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
+    console.log("🪪 Decoded Token:", decoded);
 
-    if (!secret) {
-      console.error('JWT_SECRET is not defined');
-      throw new Error('JWT_SECRET is not defined');
+    let userId: string | undefined;
+    if (typeof decoded === "object" && decoded !== null && "id" in decoded) {
+      userId = (decoded as { id: string }).id;
     }
 
-    console.log('Using JWT secret:', secret); // Debug secret
-    console.log('Verifying token:', token); // Debug token
-
-    const decoded = jwt.verify(token, secret) as { id: string };
-
-    console.log('Decoded token:', decoded); // Debug decoded payload
-
-    const user = await User.findById(decoded.id);
-    console.log('User found:', user); // Debug user retrieval
-
-    if (!user) {
-      console.log(`User not found for ID: ${decoded.id}`);
-      return res.status(401).json({ error: 'Invalid token' });
+    if (!userId) {
+      return res.status(401).json({ message: "Invalid token payload" });
     }
 
-    console.log('Authenticated user:', { id: user._id.toString(), username: user.username });
+    const user = await User.findById(userId).select("-password");
+    if (!user) return res.status(404).json({ message: "User not found" });
 
-    req.user = { id: user._id.toString(), username: user.username };
-    console.log('Request user set:', req.user); // Debug request user
-        
+    req.user = user;
+    console.log("✅ User attached to request:", req.user);
+
     next();
-  } catch (error: any) {
-    console.error('Token verification error:', error.message);
-    res.status(401).json({ error: 'Invalid token' });
+  } catch (err) {
+    if (err instanceof Error) {
+      console.error("❌ Token verification failed:", err.message);
+    } else {
+      console.error("❌ Token verification failed:", err);
+    }
+    return res.status(401).json({ message: "Invalid token" });
   }
-
-  
 };
+
 
 export default authMiddleware;

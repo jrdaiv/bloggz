@@ -1,4 +1,5 @@
 "use strict";
+// backend/src/routes/profile.ts
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -12,52 +13,47 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// backend/src/routes/profile.ts
 const express_1 = __importDefault(require("express"));
-const User_1 = __importDefault(require("../models/User"));
+const Profile_1 = __importDefault(require("../models/Profile"));
 const auth_1 = __importDefault(require("../middleware/auth"));
 const router = express_1.default.Router();
-// 🧠 Get logged-in user's profile
 router.get("/me", auth_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
-    console.log("Fetching profile for user:", req.user);
     try {
-        const user = yield User_1.default.findById((_a = req.user) === null || _a === void 0 ? void 0 : _a.id).select("-password");
-        if (!user)
-            return res.status(404).json({ error: "User not found" });
-        res.json(user);
+        const profile = yield Profile_1.default.findOne({ user: req.user.id }).populate("user", ["username", "email"]);
+        if (!profile) {
+            return res.status(404).json({ msg: "Profile not found" });
+        }
+        res.json(profile);
     }
     catch (err) {
-        console.error("Fetch profile error:", err);
-        res.status(500).json({ error: "Failed to fetch profile" });
+        console.error(err.message);
+        res.status(500).send("Server Error");
     }
 }));
-// 🛠️ Update logged-in user's profile
-router.put("/me", auth_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _b;
+// Create or update profile
+router.post("/", auth_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { avatarUrl, bio, location, website, social } = req.body;
+    const profileFields = {
+        user: req.user.id,
+        avatarUrl,
+        bio,
+        location,
+        website,
+        social,
+    };
     try {
-        const fields = ["name", "username", "email", "avatarUrl", "bio"];
-        // 🧼 Collect and sanitize provided fields
-        const updates = {};
-        fields.forEach((field) => {
-            var _a;
-            const value = (_a = req.body[field]) === null || _a === void 0 ? void 0 : _a.trim();
-            if (value)
-                updates[field] = value;
-        });
-        if (Object.keys(updates).length === 0) {
-            return res.status(400).json({ error: "No profile data provided" });
+        let profile = yield Profile_1.default.findOne({ user: req.user.id });
+        if (profile) {
+            profile = yield Profile_1.default.findOneAndUpdate({ user: req.user.id }, { $set: profileFields }, { new: true });
+            return res.json(profile);
         }
-        console.log("Updating profile with:", updates);
-        const updatedUser = yield User_1.default.findByIdAndUpdate((_b = req.user) === null || _b === void 0 ? void 0 : _b.id, { $set: updates }, { new: true, runValidators: true }).select("-password");
-        if (!updatedUser) {
-            return res.status(404).json({ error: "User not found" });
-        }
-        res.json(req.user);
+        profile = new Profile_1.default(profileFields);
+        yield profile.save();
+        res.json(profile);
     }
     catch (err) {
-        console.error("Profile update error:", err);
-        res.status(500).json({ error: "Profile update failed" });
+        console.error(err.message);
+        res.status(500).send("Server Error");
     }
 }));
 exports.default = router;

@@ -1,13 +1,10 @@
-// types/express/index.d.ts 
-import { Request } from "express";
+// types/express/index.d.ts
+import { User } from "../../models/User"; // Adjust to your actual User type
 
 declare global {
   namespace Express {
     interface Request {
-      user?: {
-        id: string;
-        username: string;
-      };
+      user?: User; // Use the correct type of your user document
     }
   }
 }
