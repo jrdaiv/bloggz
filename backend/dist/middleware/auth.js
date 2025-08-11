@@ -15,33 +15,40 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const User_1 = __importDefault(require("../models/User"));
 const authMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const authHeader = req.get('Authorization');
-    const token = (authHeader === null || authHeader === void 0 ? void 0 : authHeader.startsWith('Bearer ')) ? authHeader.replace('Bearer ', '') : undefined;
-    if (!token) {
-        console.log('No token provided for request:', req.method, req.url);
-        return res.status(401).json({ error: 'No token provided' });
-    }
+    var _a;
+    console.log("🔐 Middleware triggered for", req.originalUrl);
+    const token = (_a = req.header("Authorization")) === null || _a === void 0 ? void 0 : _a.replace("Bearer ", "");
+    if (!token)
+        return res.status(401).json({ message: "No token provided" });
     try {
-        const secret = process.env.JWT_SECRET;
-        if (!secret) {
-            console.error('JWT_SECRET is not defined');
-            throw new Error('JWT_SECRET is not defined');
+        if (!process.env.JWT_SECRET) {
+            throw new Error("JWT_SECRET is not defined in environment variables");
         }
-        console.log('Verifying token:', token); // Debug token
-        const decoded = jsonwebtoken_1.default.verify(token, secret);
-        console.log('Decoded token:', decoded); // Debug decoded payload
-        const user = yield User_1.default.findById(decoded.id);
-        if (!user) {
-            console.log(`User not found for ID: ${decoded.id}`);
-            return res.status(401).json({ error: 'Invalid token' });
+        const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
+        console.log("🪪 Decoded Token:", decoded);
+        let userId;
+        if (typeof decoded === "object" && decoded !== null && "id" in decoded) {
+            userId = decoded.id;
         }
-        console.log('Authenticated user:', { id: user._id.toString(), username: user.username });
-        req.user = { id: user._id.toString(), username: user.username };
+        if (!userId) {
+            return res.status(401).json({ message: "Invalid token payload" });
+        }
+        // Optional: Verify user exists (already done, but log for debug)
+        const user = yield User_1.default.findById(userId).select("-password");
+        if (!user)
+            return res.status(404).json({ message: "User not found" });
+        req.user = { id: userId }; // Ensure this is set correctly
+        console.log("✅ User attached to request:", req.user); // Log after setting
         next();
     }
-    catch (error) {
-        console.error('Token verification error:', error.message);
-        res.status(401).json({ error: 'Invalid token' });
+    catch (err) {
+        if (err instanceof Error) {
+            console.error("❌ Token verification failed:", err.message);
+        }
+        else {
+            console.error("❌ Token verification failed:", err);
+        }
+        return res.status(401).json({ message: "Invalid token" });
     }
 });
 exports.default = authMiddleware;

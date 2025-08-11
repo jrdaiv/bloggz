@@ -48,6 +48,9 @@ router.post("/", auth_1.default, (req, res) => __awaiter(void 0, void 0, void 0,
         if (!title || !content) {
             return res.status(400).json({ error: "Title and content are required" });
         }
+        if (!user || !user.username) {
+            return res.status(401).json({ error: "Unauthorized: user not found" });
+        }
         const post = new Post_1.default({ title, content, author: user.username });
         yield post.save();
         res.json(post);

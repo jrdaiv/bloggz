@@ -1,6 +1,6 @@
 import express, { Router, Request, Response } from "express";
 import User from "../models/User";
-import auth from "../middleware/auth"; // Ensure this path is correct
+import auth from "../middleware/auth";
 
 const router: Router = express.Router();
 
@@ -12,6 +12,12 @@ router.use((req: Request, res: Response, next) => {
   next();
 });
 
+// Test route (static, should come first)
+router.get('/test', (req: Request, res: Response) => {
+  console.log("Test route hit");
+  res.json({ message: "User route test endpoint" });
+});
+
 // 📥 Get all users (excluding passwords)
 router.get("/", async (req: Request, res: Response) => {
   try {
@@ -20,6 +26,43 @@ router.get("/", async (req: Request, res: Response) => {
   } catch (err) {
     console.error("Error fetching users:", err);
     res.status(500).json({ error: "Failed to fetch users" });
+  }
+});
+// Get Profile
+router.get('/profile', auth, async (req: Request, res: Response) => {
+  try {
+    console.log("Profile GET route hit", req.user);
+    if (!req.user || typeof req.user.id !== "string") {
+      throw new Error("Invalid user object in request");
+    }
+    const user = await User.findById(req.user.id).select('-password');
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json(user);
+  } catch (err) {
+    console.error("Profile GET error:", err);
+    res.status(500).json({ error: "Failed to fetch user" });
+  }
+});
+
+// Edit Profile
+router.put('/profile', auth, async (req: Request, res: Response) => {
+  const { username, bio, avatarUrl } = req.body;
+  try {
+    console.log("Profile PUT route hit", req.user);
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      { username, bio: bio || '', avatarUrl: avatarUrl || '' },
+      { new: true }
+    ).select('-password');
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json(user);
+  } catch (err) {
+    console.error("Profile PUT error:", err);
+    res.status(500).send('Server error');
   }
 });
 
@@ -37,39 +80,5 @@ router.get("/:id", async (req: Request, res: Response) => {
   }
 });
 
-// Get Profile
-router.get('/profile', auth, async (req: Request, res: Response) => {
-  try {
-    console.log("Profile GET route hit", req.user); // Debug log
-    const user = await User.findById(req.user.id).select('-password');
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-    res.json(user);
-  } catch (err) {
-    console.error("Profile GET error:", err);
-    res.status(500).send('Server error');
-  }
-});
-
-// Edit Profile
-router.put('/profile', auth, async (req: Request, res: Response) => {
-  const { username, bio, avatarUrl } = req.body;
-  try {
-    console.log("Profile PUT route hit", req.user); // Debug log
-    const user = await User.findByIdAndUpdate(
-      req.user.id,
-      { username, bio: bio || '', avatarUrl: avatarUrl || '' },
-      { new: true }
-    ).select('-password');
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-    res.json(user);
-  } catch (err) {
-    console.error("Profile PUT error:", err);
-    res.status(500).send('Server error');
-  }
-});
 
 export default router;

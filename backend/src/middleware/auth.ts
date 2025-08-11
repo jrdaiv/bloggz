@@ -2,9 +2,12 @@ import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 import User from "../models/User";
 
+interface AuthRequest extends Request {
+  user?: { id: string };
+}
 
-const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
-  console.log("🔐 Middleware triggered");
+const authMiddleware = async (req: AuthRequest, res: Response, next: NextFunction) => {
+  console.log("🔐 Middleware triggered for", req.originalUrl);
 
   const token = req.header("Authorization")?.replace("Bearer ", "");
   if (!token) return res.status(401).json({ message: "No token provided" });
@@ -25,11 +28,12 @@ const authMiddleware = async (req: Request, res: Response, next: NextFunction) =
       return res.status(401).json({ message: "Invalid token payload" });
     }
 
+    // Optional: Verify user exists (already done, but log for debug)
     const user = await User.findById(userId).select("-password");
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    req.user = user;
-    console.log("✅ User attached to request:", req.user);
+    req.user = { id: userId }; // Ensure this is set correctly
+    console.log("✅ User attached to request:", req.user); // Log after setting
 
     next();
   } catch (err) {
@@ -41,6 +45,5 @@ const authMiddleware = async (req: Request, res: Response, next: NextFunction) =
     return res.status(401).json({ message: "Invalid token" });
   }
 };
-
 
 export default authMiddleware;
