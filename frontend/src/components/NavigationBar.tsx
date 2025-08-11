@@ -109,7 +109,7 @@ export default function NavigationBar() {
                       View Profile
                     </MenuItem>
                   </Link>
-                  <Link to="/edit-profile">
+                  {/* <Link to="/edit-profile">
                     <MenuItem
                       placeholder={undefined}
                       onPointerEnterCapture={undefined}
@@ -117,7 +117,7 @@ export default function NavigationBar() {
                     >
                       Edit Profile
                     </MenuItem>
-                  </Link>
+                  </Link> */}
                   <Button
                     onClick={handleLogout}
                     className="bg-red-600 hover:bg-red-700 text-black font-semibold w-full p-[-10px] rounded-md drop-shadow-md"

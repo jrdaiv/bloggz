@@ -17,7 +17,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`${backendUrl}/api/profile`, {
+        const response = await fetch(`${backendUrl}/api/user/profile`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -25,26 +25,32 @@ export default function Profile() {
           },
         });
 
-        if (!response.ok) throw new Error("Failed to fetch user");
+        if (!response.ok) {
+          throw new Error(`Failed to fetch user: ${response.status} ${response.statusText}`);
+        }
 
         const data = await response.json();
         setUser(data);
-        setName(data.name);
-        setUsername(data.username);
-        setBio(data.bio);
-        setAvatarUrl(data.avatarUrl);
+        setName(data.name || "");
+        setUsername(data.username || "");
+        setBio(data.bio || "");
+        setAvatarUrl(data.avatarUrl || "");
       } catch (err: any) {
         console.error("Fetch error:", err.message);
       }
     };
 
-    fetchUser();
+    if (token) {
+      fetchUser();
+    } else {
+      console.error("No token found");
+    }
   }, [token]);
 
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${backendUrl}/api/profile`, {
+      const response = await fetch(`${backendUrl}/api/user/profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -53,7 +59,9 @@ export default function Profile() {
         body: JSON.stringify({ name, username, bio, avatarUrl }),
       });
 
-      if (!response.ok) throw new Error("Update failed");
+      if (!response.ok) {
+        throw new Error(`Update failed: ${response.status} ${response.statusText}`);
+      }
 
       const updated = await response.json();
       setUser(updated);
@@ -63,7 +71,7 @@ export default function Profile() {
     }
   };
 
-  if (!user) return <p>Loading profile...</p>;
+  if (!user) return <p className="text-center mt-8">Loading profile...</p>;
 
   return (
     <div className="max-w-lg mx-auto mt-8 bg-white p-6 rounded-lg shadow-md">
