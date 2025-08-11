@@ -1,3 +1,4 @@
+// src/components/AuthForm.tsx
 import { useAuth } from "@/context/AuthContext";
 import { Button, Input } from "@material-tailwind/react";
 import { FormEvent, useState } from "react";

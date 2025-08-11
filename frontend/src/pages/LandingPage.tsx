@@ -1,3 +1,4 @@
+// src/pages/LandingPage.tsx
 import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 

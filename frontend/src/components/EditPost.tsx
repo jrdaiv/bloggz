@@ -1,3 +1,4 @@
+// src/components/EditPost.tsx
 import { Button, Input, Textarea } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";

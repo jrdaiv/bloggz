@@ -1,3 +1,4 @@
+// src/components/NavigationBar.tsx
 import { useAuth } from "@/context/AuthContext";
 import {
   Avatar,

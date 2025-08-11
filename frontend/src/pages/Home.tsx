@@ -1,3 +1,4 @@
+// src/pages/Home.tsx
 import { useEffect, useState } from 'react';
 import PostCard from '../components/PostCard';
 import { Post } from '@/types';

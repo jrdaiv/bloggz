@@ -1,3 +1,4 @@
+// src/pages/Auth.tsx
 import Authform from "../components/AuthForm";
 
 

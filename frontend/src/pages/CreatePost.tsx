@@ -1,3 +1,4 @@
+// src/pages/CreatePost.tsx
 import { Button, Input, Textarea } from "@material-tailwind/react";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
