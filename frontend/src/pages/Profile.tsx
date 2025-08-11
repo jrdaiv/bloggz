@@ -27,6 +27,7 @@ export default function Profile() {
         },
       });
 
+      
       console.log("Response status:", response.status); // Debug status
       if (!response.ok) {
         const errorData = await response.json();
