@@ -15,37 +15,43 @@ export default function Profile() {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await fetch(`${backendUrl}/api/user/profile`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
+  console.log("Token:", token);
+  console.log("Backend URL:", backendUrl);
+  const fetchUser = async () => {
+    try {
+      const response = await fetch(`${backendUrl}/api/user/profile`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-        if (!response.ok) {
-          throw new Error(`Failed to fetch user: ${response.status} ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        setUser(data);
-        setName(data.name || "");
-        setUsername(data.username || "");
-        setBio(data.bio || "");
-        setAvatarUrl(data.avatarUrl || "");
-      } catch (err: any) {
-        console.error("Fetch error:", err.message);
+      console.log("Response status:", response.status); // Debug status
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.log("Error data:", errorData); // Debug error response
+        throw new Error(`Failed to fetch user: ${response.status} ${response.statusText}`);
       }
-    };
 
-    if (token) {
-      fetchUser();
-    } else {
-      console.error("No token found");
+      const data = await response.json();
+      console.log("User data:", data);
+      setUser(data);
+      setName(data.name || "");
+      setUsername(data.username || "");
+      setBio(data.bio || "");
+      setAvatarUrl(data.avatarUrl || "");
+    } catch (err: any) {
+      console.error("Fetch error:", err.message);
     }
-  }, [token]);
+  };
+
+  if (token) {
+    fetchUser();
+  } else {
+    console.error("No token found");
+  }
+}, [token, backendUrl]);
 
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
