@@ -9,8 +9,8 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const db_1 = __importDefault(require("./config/db"));
 const auth_1 = __importDefault(require("./routes/auth"));
 const posts_1 = __importDefault(require("./routes/posts"));
-const profile_1 = __importDefault(require("./routes/profile"));
 const user_1 = __importDefault(require("./routes/user"));
+// import profileRoutes from "./routes/user";
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 (0, db_1.default)();
@@ -26,22 +26,22 @@ app.use(express_1.default.json());
 app.use("/api/user", user_1.default);
 app.use("/api/auth", auth_1.default);
 app.use("/api/posts", posts_1.default);
-app.use("/api/profile", profile_1.default);
+// try {
+//   app.use("/api/profile", profileRoutes);
+// } catch (err) {
+//   console.error("Failed to load profileRoutes:", err);
+// }
 app.use((req, res, next) => {
     console.log(`[INCOMING] ${req.method} ${req.url}`);
-    next();
-});
-app.use((req, res, next) => {
-    console.log(`[${req.method}] ${req.originalUrl}`);
     next();
 });
 app.get("/", (req, res) => {
     res.send("Backend is live!");
 });
-app.get('/api/test', (req, res) => res.json({ message: 'Proxy working' })); // Test route
-app.use("*", (req, res) => {
-    res.status(404).send("Not Found");
+app.get("/api/direct-test", (req, res) => {
+    res.json({ msg: "Direct route works!" });
 });
+app.get('/api/test', (req, res) => res.json({ message: 'Proxy working' })); // Test route
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
