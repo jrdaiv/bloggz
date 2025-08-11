@@ -1,6 +1,7 @@
 // backend/src/routes/user.ts
 import express from "express";
 import User from "../models/User";
+import auth from "./auth";
 const router = express.Router();
 
 // 🧪 Helper to log request source
@@ -31,6 +32,31 @@ router.get("/:id", async (req, res) => {
   } catch (err) {
     console.error("Error fetching user by ID:", err);
     res.status(500).json({ error: "Failed to fetch user" });
+  }
+});
+
+// Get Profile
+router.get('/profile', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    res.json(user);
+  } catch (err) {
+    res.status(500).send('Server error');
+  }
+});
+
+// Edit Profile
+router.put('/profile', auth, async (req, res) => {
+  const { username, bio, avatarUrl } = req.body;
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      { username, bio: bio || '', avatarUrl: avatarUrl || '' },
+      { new: true }
+    ).select('-password');
+    res.json(user);
+  } catch (err) {
+    res.status(500).send('Server error');
   }
 });
 

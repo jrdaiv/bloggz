@@ -4,8 +4,8 @@ import dotenv from "dotenv";
 import connectDB from "./config/db";
 import authRoutes from "./routes/auth";
 import postRoutes from "./routes/posts";
-import profileRoutes from "./routes/profile"
 import userRoutes from "./routes/user";
+import profileRoutes from "./routes/profile";
 
 dotenv.config();
 
@@ -50,11 +50,11 @@ app.get("/", (req, res) => {
   res.send("Backend is live!");
 });
 
-app.get('/api/test', (req, res) => res.json({ message: 'Proxy working' })); // Test route
-
-app.use("*", (req, res) => {
-  res.status(404).send("Not Found");
+app.get("/api/direct-test", (req, res) => {
+  res.json({ msg: "Direct route works!" });
 });
+
+app.get('/api/test', (req, res) => res.json({ message: 'Proxy working' })); // Test route
 
 
 const PORT = process.env.PORT || 5000;

@@ -1,77 +1,78 @@
-// backend/src/routes/profile.ts
+// // backend/src/routes/profile.ts
 
-import express from "express";
-import Profile from "../models/Profile";
-import authMiddleware from "../middleware/auth";
-import User from "../models/User";
+// import express from "express";
+// import Profile from "../models/Profile";
+// import authMiddleware from "../middleware/auth";
+// import User from "../models/User";
 
-const router = express.Router();
+// const router = express.Router();
 
-router.get("/test", (req, res) => {
-  res.json({ message: "Profile route is working!" });
-});
+// router.get("/test", (req, res) => {
+//   res.json({ message: "Profile route is working!" });
+// });
 
-router.get("/ping", (req, res) => {
-  console.log("Ping route hit");
-  res.json({ msg: "Profile route is active" });
-});
+// // Test endpoint
+// router.get("/ping", (req, res) => {
+//   res.json({ msg: "Profile route active!" });
+// });
 
-router.get("/me", authMiddleware, async (req, res) => {
-  try {
-    const profile = await Profile.findOne({ user: req.user.id })
-      .populate("user", ["name", "username", "email", "avatarUrl", "bio"]);
 
-    if (!profile) {
-      return res.status(404).json({ msg: "Profile not found" });
-    }
+// router.get("/me", authMiddleware, async (req, res) => {
+//   try {
+//     const profile = await Profile.findOne({ user: req.user._id })
+//       .populate("user", ["name", "username", "email", "avatarUrl", "bio"]);
 
-    // Merge profile and user fields for frontend ease
-    const responseData = {
-      ...profile.toObject(),
-      ...(typeof profile.user === "object" && profile.user !== null && "toObject" in profile.user
-        ? (profile.user as any).toObject()
-        : {}),
-    };
+//     if (!profile) {
+//       return res.status(404).json({ msg: "Profile not found" });
+//     }
 
-    res.json(responseData);
-  } catch (err: any) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-});
+//     // Merge profile and user fields for frontend ease
+//     const responseData = {
+//       ...profile.toObject(),
+//       ...(typeof profile.user === "object" && profile.user !== null && "toObject" in profile.user
+//         ? (profile.user as any).toObject()
+//         : {}),
+//     };
 
-// Create or update profile
-router.post("/", authMiddleware, async (req, res) => {
-  const { avatarUrl, bio, location, website, social } = req.body;
+//     res.json(responseData);
+//   } catch (err: any) {
+//     console.error(err.message);
+//     res.status(500).send("Server Error");
+//   }
+// });
 
-  const profileFields: any = {
-    user: req.user.id,
-    avatarUrl,
-    bio,
-    location,
-    website,
-    social,
-  };
+// // Create or update profile
+// router.post("/", authMiddleware, async (req, res) => {
+//   const { avatarUrl, bio, location, website, social } = req.body;
 
-  try {
-    let profile = await Profile.findOne({ user: req.user.id });
+//   const profileFields: any = {
+//     user: req.user.id,
+//     avatarUrl,
+//     bio,
+//     location,
+//     website,
+//     social,
+//   };
 
-    if (profile) {
-      profile = await Profile.findOneAndUpdate(
-        { user: req.user.id },
-        { $set: profileFields },
-        { new: true }
-      );
-      return res.json(profile);
-    }
+//   try {
+//     let profile = await Profile.findOne({ user: req.user.id });
 
-    profile = new Profile(profileFields);
-    await profile.save();
-    res.json(profile);
-  } catch (err: any) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-});
+//     if (profile) {
+//       profile = await Profile.findOneAndUpdate(
+//         { user: req.user.id },
+//         { $set: profileFields },
+//         { new: true }
+//       );
+//       return res.json(profile);
+//     }
 
-export default router;
+//     profile = new Profile(profileFields);
+//     await profile.save();
+//     res.json(profile);
+//   } catch (err: any) {
+//     console.error(err.message);
+//     res.status(500).send("Server Error");
+//   }
+// });
+
+// export default router;
