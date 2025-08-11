@@ -5,7 +5,7 @@ import connectDB from "./config/db";
 import authRoutes from "./routes/auth";
 import postRoutes from "./routes/posts";
 import userRoutes from "./routes/user";
-import profileRoutes from "./routes/profile";
+import profileRoutes from "./routes/user";
 
 dotenv.config();
 
@@ -25,7 +25,7 @@ app.use(cors({
 
 app.use(express.json());
 
-console.log("Profile routes imported:", typeof profileRoutes);
+// console.log("Profile routes imported:", typeof profileRoutes);
 
 
 app.use("/api/user", userRoutes);
