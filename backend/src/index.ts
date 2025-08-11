@@ -5,7 +5,7 @@ import connectDB from "./config/db";
 import authRoutes from "./routes/auth";
 import postRoutes from "./routes/posts";
 import userRoutes from "./routes/user";
-import profileRoutes from "./routes/user";
+// import profileRoutes from "./routes/user";
 
 dotenv.config();
 
@@ -25,24 +25,16 @@ app.use(cors({
 
 app.use(express.json());
 
-// console.log("Profile routes imported:", typeof profileRoutes);
-
-
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
-try {
-  app.use("/api/profile", profileRoutes);
-} catch (err) {
-  console.error("Failed to load profileRoutes:", err);
-}
+// try {
+//   app.use("/api/profile", profileRoutes);
+// } catch (err) {
+//   console.error("Failed to load profileRoutes:", err);
+// }
 app.use((req, res, next) => {
   console.log(`[INCOMING] ${req.method} ${req.url}`);
-  next();
-});
-
-app.use((req, res, next) => {
-  console.log(`[${req.method}] ${req.originalUrl}`);
   next();
 });
 
