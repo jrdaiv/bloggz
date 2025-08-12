@@ -1,6 +1,6 @@
 // src/components/AuthForm.tsx
 import { useAuth } from "@/context/AuthContext";
-import { Button, Input } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -79,7 +79,7 @@ const AuthForm = () => {
 
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 bg-transparent backdrop-blur-md p-6 rounded-lg border border-white/60 w-full max-w-md"
+        className="space-y-4 bg-transparent/10 backdrop-blur-md p-6 rounded-lg border border-white/60 w-full max-w-md"
       >
         <p className="flex justify-center underline text-2xl font-bold text-white mb-4">
           {isLogin ? "Login" : "Sign Up"}
@@ -90,54 +90,46 @@ const AuthForm = () => {
         )}
 
         {!isLogin && (
-          <>
-            <Input
+          <div className="flex flex-col gap-2 ">
+            <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Name"
               required
-              className="text-white placeholder-white"
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-              crossOrigin={undefined}
+              className="text-white placeholder-white bg-transparent backdrop-blur-md border border-white/40 rounded-lg p-3 transition-all drop-shadow-md"
             />
-            <Input
+
+            <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Username"
               required
-              className="text-white placeholder-white"
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-              crossOrigin={undefined}
+              className="text-white placeholder-white bg-transparent backdrop-blur-md border border-white/40 rounded-lg p-3 transition-all drop-shadow-md"
             />
-          </>
+          </div>
         )}
 
-        <Input
+        <div className="flex flex-col gap-2">
+          <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Example@email.com"
           required
-          className="text-white placeholder-white"
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-          crossOrigin={undefined}
+          className="text-white placeholder-white bg-transparent backdrop-blur-md border border-white/40 rounded-lg p-3 transition-all drop-shadow-md"
         />
-        <Input
+
+        <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
           required
-          className="text-white placeholder-white"
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-          crossOrigin={undefined}
-        />
+          className="text-white placeholder-white bg-transparent backdrop-blur-md border border-white/40 rounded-lg p-3 transition-all drop-shadow-md"
+        />  
+        </div>
 
         <Button
           type="submit"

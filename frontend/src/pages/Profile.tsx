@@ -82,10 +82,10 @@ export default function Profile() {
   if (!user) return <p className="text-center mt-8">Loading profile...</p>;
 
   return (
-    <div className="max-w-lg mx-auto mt-8 p-6 text-white rounded-lg bg-transparent backdrop-blur-md shadow-md">
+    <div className="flex justify-center max-w-lg mx-auto mt-24 p-6 text-white rounded-lg bg-transparent/20 backdrop-blur-md border border-white/60 ">
 
       {isEditing ? (
-        <form onSubmit={handleUpdate}>
+        <form className="bg-transparent" onSubmit={handleUpdate}>
 
           <h2 className="flex justify-center mx-auto text-3xl font-bold mb-4">Edit Profile</h2>
 
@@ -122,6 +122,7 @@ export default function Profile() {
               onChange={(e) => setBio(e.target.value)}
               className="w-full p-2 border rounded bg-transparent"
             />
+
           </div>
 
           <div className="mb-4">
@@ -152,7 +153,7 @@ export default function Profile() {
         </form>
       ) : (
 
-        <div className="text-center text-white bg-transparent backdrop-blur-md p-4 rounded-lg">
+        <div className="text-center text-white w-full p-4 rounded-lg">
 
           <img
             src={user.avatarUrl || DefaultProfilePic}

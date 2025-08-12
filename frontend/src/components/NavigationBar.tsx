@@ -31,7 +31,7 @@ export default function NavigationBar() {
 
   return (
     <Navbar
-      className="mx-auto bg-transparent backdrop-blur-md w-full flex items-center justify-between px-4 py-3 shadow-md"
+      className="mx-auto bg-transparent/10 backdrop-blur-md w-full flex items-center justify-between px-4 py-3 shadow-md"
       placeholder={undefined}
       onPointerEnterCapture={undefined}
       onPointerLeaveCapture={undefined}

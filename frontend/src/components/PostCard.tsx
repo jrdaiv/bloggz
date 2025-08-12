@@ -58,7 +58,7 @@ export default function PostCard({ post, onDelete }: PostCardProps) {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-transparent/10">
       <Card
         className="bg-transparent/10 backdrop-blur-md border transition-transform hover:scale-105 border-white/60 rounded-lg shadow-lg"
         placeholder={undefined}

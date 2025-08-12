@@ -1,5 +1,5 @@
 // src/components/EditPost.tsx
-import { Button, Input, Textarea } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -79,39 +79,40 @@ const EditPost = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-transparent px-4 sm:px-6 pt-16 sm:pt-20">
+    <div className="flex items-center justify-center bg-transparent/10 pt-24">
+
       <form
         onSubmit={handleUpdate}
-        className="space-y-6 bg-transparent/10 backdrop-blur-md p-8 rounded-xl border border-white/30 w-full max-w-lg"
+        className="space-y-6 bg-transparent/10 backdrop-blur-md p-8 rounded-xl border border-white/60 w-full max-w-lg"
       >
+
         <h2 className="text-3xl font-bold text-white mb-6 text-center drop-shadow-lg">
           Edit Post
         </h2>
+
         {error && (
           <div className="text-red-500 text-center font-semibold drop-shadow-md">
             {error}
           </div>
         )}
-        <Input
+
+        <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Title"
           required
-          className="w-full border-white/40 rounded-lg p-3 bg-transparent text-white drop-shadow-md"
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-          crossOrigin={undefined}
+          className="w-full text-white placeholder-white bg-transparent backdrop-blur-md border border-white/60 rounded-lg p-3 transition-all drop-shadow-md"
         />
-        <Textarea
+
+        <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="Content"
           rows={8}
-          className="w-full border-white/40 rounded-lg p-3 bg-transparent text-white drop-shadow-md"
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
+          className="w-full text-white placeholder-white bg-transparent backdrop-blur-md border border-white/60 rounded-lg p-3 transition-all drop-shadow-md"
         />
+
         <Button
           type="submit"
           className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg drop-shadow-md"
@@ -121,6 +122,7 @@ const EditPost = () => {
         >
           Update Post
         </Button>
+        
       </form>
     </div>
   );
