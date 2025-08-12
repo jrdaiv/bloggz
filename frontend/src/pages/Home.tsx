@@ -15,7 +15,7 @@ export default function Home() {
         const response = await fetch(`${backendUrl}/api/posts`);
         if (!response.ok) throw new Error('Failed to fetch posts');
         const data = await response.json();
-        setPosts(data); // No transformation needed, use _id directly
+        setPosts(data); 
       } catch (error) {
         console.error('Failed to fetch posts:', error);
         alert('Failed to fetch posts');
@@ -29,9 +29,9 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-transparent px-20 py-20">
-      <h1 className="text-3xl font-bold text-white mb-8 text-center drop-shadow-md">Blog Posts</h1>
-      <div className="container mx-auto flex flex-col gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="min-h-max px-20 py-20">
+      <h1 className="text-4xl underline font-bold text-white mb-8 text-center drop-shadow-md">Blogs</h1>
+      <div className="container mx-auto flex flex-col gap-10 sm:grid-cols-2 lg:grid-cols-3">
         {posts.map((post) => (
           <PostCard key={post._id} post={post} onDelete={handleDelete} />
         ))}

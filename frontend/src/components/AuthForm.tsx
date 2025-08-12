@@ -13,11 +13,10 @@ const AuthForm = () => {
   const [username, setUsername] = useState("");
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  
+
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const handleLogin = async () => {
-    
     const url = `${backendUrl}/api/auth/login`;
     const data = { email, password };
 
@@ -77,10 +76,15 @@ const AuthForm = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
+
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 bg-white/5 backdrop-blur-md p-6 rounded-lg border border-white/20 w-full max-w-md"
+        className="space-y-4 bg-transparent backdrop-blur-md p-6 rounded-lg border border-white/60 w-full max-w-md"
       >
+        <p className="flex justify-center underline text-2xl font-bold text-white mb-4">
+          {isLogin ? "Login" : "Sign Up"}
+        </p>
+
         {error && (
           <div className="text-red-500 text-center font-semibold">{error}</div>
         )}
@@ -93,7 +97,7 @@ const AuthForm = () => {
               onChange={(e) => setName(e.target.value)}
               placeholder="Name"
               required
-              className="text-white placeholder-white/70"
+              className="text-white placeholder-white"
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
               crossOrigin={undefined}
@@ -104,7 +108,7 @@ const AuthForm = () => {
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Username"
               required
-              className="text-white placeholder-white/70"
+              className="text-white placeholder-white"
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
               crossOrigin={undefined}
@@ -116,9 +120,9 @@ const AuthForm = () => {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
+          placeholder="Example@email.com"
           required
-          className="text-white placeholder-white/70"
+          className="text-white placeholder-white"
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
           crossOrigin={undefined}
@@ -129,7 +133,7 @@ const AuthForm = () => {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
           required
-          className="text-white placeholder-white/70"
+          className="text-white placeholder-white"
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
           crossOrigin={undefined}

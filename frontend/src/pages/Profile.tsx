@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import DefaultProfilePic from "/Profilepic.webp";
 import { useAuth } from "@/context/AuthContext";
 import { User } from "@/types";
+import { Button } from "@material-tailwind/react";
 
 export default function Profile() {
   const { token } = useAuth();
@@ -81,73 +82,97 @@ export default function Profile() {
   if (!user) return <p className="text-center mt-8">Loading profile...</p>;
 
   return (
-    <div className="max-w-lg mx-auto mt-8 bg-white p-6 rounded-lg shadow-md">
+    <div className="max-w-lg mx-auto mt-8 p-6 text-white rounded-lg bg-transparent backdrop-blur-md shadow-md">
+
       {isEditing ? (
         <form onSubmit={handleUpdate}>
-          <h2 className="text-2xl font-bold mb-4">Edit Profile</h2>
+
+          <h2 className="flex justify-center mx-auto text-3xl font-bold mb-4">Edit Profile</h2>
+
           <div className="mb-4">
+            
             <label className="block text-sm font-medium mb-1">Name</label>
+
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border rounded bg-transparent"
             />
           </div>
+
           <div className="mb-4">
+
             <label className="block text-sm font-medium mb-1">Username</label>
+
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border rounded bg-transparent"
             />
           </div>
+
           <div className="mb-4">
+
             <label className="block text-sm font-medium mb-1">Bio</label>
+
             <textarea
               value={bio}
               onChange={(e) => setBio(e.target.value)}
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border rounded bg-transparent"
             />
           </div>
+
           <div className="mb-4">
+
             <label className="block text-sm font-medium mb-1">Avatar URL</label>
+
             <input
               type="text"
+              placeholder={user.avatarUrl || "Enter avatar URL"}
               value={avatarUrl}
               onChange={(e) => setAvatarUrl(e.target.value)}
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border rounded bg-transparent placeholder-white"
             />
           </div>
-          <button type="submit" className="btn bg-blue-600 text-white mr-2">
-            Save Changes
-          </button>
-          <button
-            type="button"
-            onClick={() => setIsEditing(false)}
-            className="btn bg-gray-400 text-white"
-          >
-            Cancel
-          </button>
+
+          <div className="flex justify-center gap-2">
+            <Button type="submit" className="btn bg-blue-600 text-white mr-2" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+              Save Changes
+            </Button>
+            <Button
+              type="button"
+              onClick={() => setIsEditing(false)}
+              className="btn bg-gray-600 text-white" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+              Cancel
+            </Button>
+          </div>
+
         </form>
       ) : (
-        <>
+
+        <div className="text-center text-white bg-transparent backdrop-blur-md p-4 rounded-lg">
+
           <img
             src={user.avatarUrl || DefaultProfilePic}
             alt="Avatar"
             className="w-24 h-24 rounded-full mx-auto mb-4"
           />
-          <h2 className="text-2xl font-bold text-center">{user.name}</h2>
-          <p className="text-center text-gray-600">@{user.username}</p>
-          <p className="mt-4 text-gray-700">{user.bio || "No bio yet."}</p>
-          <button
-            onClick={() => setIsEditing(true)}
-            className="mt-4 btn bg-blue-600 text-white"
-          >
+
+          <h2 className="text-2xl font-bold text-white text-center">{user.name}</h2>
+
+          <p className="text-center text-white">@{user.username}</p>
+
+          <p className="mt-4 text-white">{user.bio || "No bio yet."}</p>
+
+          <Button
+              onClick={() => setIsEditing(true)}
+              className="mt-4 btn bg-blue-600 text-white" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
             Edit Profile
-          </button>
-        </>
+          </Button>
+
+        </div>
       )}
     </div>
   );

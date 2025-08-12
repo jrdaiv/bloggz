@@ -24,24 +24,6 @@ export default function NavigationBar() {
 
   const isAuthPage = location.pathname === "/auth";
 
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     const token = localStorage.getItem("token");
-  //     if (!token) return;
-  //     const res = await fetch(`${backendUrl}/api/profile/me`, {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-  //     const data = await res.json();
-  //     setUser(data);
-  //   };
-
-  //   if (isLoggedIn) fetchUser();
-  // }, [isLoggedIn]);
-
   const handleLogout = () => {
     logout();
     navigate("/");
@@ -49,24 +31,24 @@ export default function NavigationBar() {
 
   return (
     <Navbar
-      className="bg-transparent backdrop-blur-md w-full "
+      className="mx-auto bg-transparent backdrop-blur-md w-full flex items-center justify-between px-4 py-3 shadow-md"
       placeholder={undefined}
       onPointerEnterCapture={undefined}
       onPointerLeaveCapture={undefined}
     >
-      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div className="container flex items-center mr-auto px-4 py-3 ">
         {/* Logo or Placeholder */}
-        <div className="flex items-center">
+        <div className="">
           <Link
             to={isLoggedIn ? "/home" : "/"}
-            className="text-2xl font-bold text-white drop-shadow-md"
+            className="text-4xl font-bold text-white drop-shadow-md outline-4 outline-black"
           >
             Bloggz
           </Link>
         </div>
 
         {/* Right-aligned Buttons */}
-        <div className="flex items-center gap-4">
+        <div className="flex ml-auto items-center gap-4">
           {isLoggedIn ? (
             <>
               <Link to="/create">
@@ -98,10 +80,8 @@ export default function NavigationBar() {
                   onPointerLeaveCapture={undefined}
                 >
                   <Link to="/profile">
-                    {/* <MenuItem className="cursor-default" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-                      Signed in as: {user?.username}
-                    </MenuItem> */}
                     <MenuItem
+                    className="hover:bg-gray-300 text-black font-bold"
                       placeholder={undefined}
                       onPointerEnterCapture={undefined}
                       onPointerLeaveCapture={undefined}
@@ -109,23 +89,15 @@ export default function NavigationBar() {
                       View Profile
                     </MenuItem>
                   </Link>
-                  {/* <Link to="/edit-profile">
-                    <MenuItem
-                      placeholder={undefined}
-                      onPointerEnterCapture={undefined}
-                      onPointerLeaveCapture={undefined}
-                    >
-                      Edit Profile
-                    </MenuItem>
-                  </Link> */}
                   <Button
                     onClick={handleLogout}
-                    className="bg-red-600 hover:bg-red-700 text-black font-semibold w-full p-[-10px] rounded-md drop-shadow-md"
+                    className="bg-red-600 hover:bg-red-700 text-black font-semibold w-full p-[-10px] rounded-md drop-shadow-md mt-2"
                     placeholder={undefined}
                     onPointerEnterCapture={undefined}
                     onPointerLeaveCapture={undefined}
                   >
                     <MenuItem
+                    className="text-white font-bold hover:bg-red-600 hover:text-white"
                       placeholder={undefined}
                       onPointerEnterCapture={undefined}
                       onPointerLeaveCapture={undefined}

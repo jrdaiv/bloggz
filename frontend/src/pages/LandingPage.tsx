@@ -3,7 +3,6 @@ import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 
 export default function LandingPage() {
-  console.log("LandingPage rendered"); // Debug log
   const navigate = useNavigate()
   return (
     <div className="min-h-screen flex items-center justify-center bg-transparent px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20">

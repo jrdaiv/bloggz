@@ -2,7 +2,6 @@
 import {
   Button,
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
 } from "@material-tailwind/react";
@@ -61,20 +60,16 @@ export default function PostCard({ post, onDelete }: PostCardProps) {
   return (
     <div className="w-full">
       <Card
-        className="bg-transparent/10 backdrop-blur-md border border-white/20 rounded-lg shadow-lg"
+        className="bg-transparent/10 backdrop-blur-md border transition-transform hover:scale-105 border-white/60 rounded-lg shadow-lg"
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        <CardHeader
-          className="text-xl font-semibold text-white p-4 border-b border-white/20 drop-shadow-md"
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
+        <p className="text-xl font-semibold bg-transparent text-white p-4 ">
           {post.title.substring(0, 50)}
-        </CardHeader>
+        </p>
 
+        {/* Card body with post content and author information */}
         <CardBody
           className="p-4 text-white/90 drop-shadow-md"
           placeholder={undefined}
@@ -87,12 +82,14 @@ export default function PostCard({ post, onDelete }: PostCardProps) {
           </p>
         </CardBody>
 
+        {/* Footer with Edit and Delete buttons */}
         <CardFooter
           className="p-4 flex justify-end gap-2 border-t border-white/20"
           placeholder={undefined}
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
+          {/* Buttons for Edit and Delete actions */}
           <Button
             onClick={() => handleEdit(post._id)}
             className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md drop-shadow-md"
