@@ -82,7 +82,7 @@ export default function Profile() {
   if (!user) return <p className="text-center mt-8">Loading profile...</p>;
 
   return (
-    <div className="flex justify-center max-w-lg mx-auto mt-24 p-6 text-white rounded-lg bg-transparent/20 backdrop-blur-md border border-white/60 ">
+    <div className="flex justify-center max-w-lg mx-auto mt-28 py-12 text-white rounded-lg bg-transparent/20 backdrop-blur-md border border-white/60 ">
 
       {isEditing ? (
         <form className="bg-transparent" onSubmit={handleUpdate}>
@@ -163,13 +163,13 @@ export default function Profile() {
 
           <h2 className="text-2xl font-bold text-white text-center">{user.name}</h2>
 
-          <p className="text-center text-white">@{user.username}</p>
+          <p className="text-center text-white mb-8">@{user.username}</p>
 
           <p className="mt-4 text-white">{user.bio || "No bio yet."}</p>
 
           <Button
               onClick={() => setIsEditing(true)}
-              className="mt-4 btn bg-blue-600 text-white" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
+              className="mt-10 btn bg-blue-600 text-white" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
             Edit Profile
           </Button>
 

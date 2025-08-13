@@ -75,7 +75,7 @@ const AuthForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <div className="flex items-center bg-transparent/10 justify-center pt-24 px-4">
 
       <form
         onSubmit={handleSubmit}

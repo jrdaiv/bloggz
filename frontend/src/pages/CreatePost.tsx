@@ -34,7 +34,7 @@ export default function CreatePost() {
   };
 
   return (
-    <div className="flex justify-center max-w-lg mx-auto mt-16 p-6 text-white rounded-lg bg-transparent shadow-md">
+    <div className="flex justify-center max-w-lg mx-auto mt-24 p-6 text-white rounded-lg bg-transparent shadow-md">
       <form
         onSubmit={handleSubmit}
         className="space-y-6 bg-transparent/20 backdrop-blur-md p-8 sm:p-10 rounded-2xl border border-white/60 w-full max-w-lg shadow-xl"

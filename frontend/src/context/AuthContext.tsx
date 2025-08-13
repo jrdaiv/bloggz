@@ -1,4 +1,4 @@
-// import { User } from "@/types";
+// src/context/AuthContext.tsx
 import React, { createContext, useContext, useState } from "react";
 
 interface AuthContextType {
@@ -17,12 +17,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const login = (token: string) => {
     localStorage.setItem("token", token);
+    sessionStorage.setItem("token", token);
     console.log("Token set:", token);
     setToken(token);
   };
 
   const logout = () => {
     localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     setToken(null);
   };
 

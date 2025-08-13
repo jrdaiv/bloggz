@@ -29,9 +29,9 @@ export default function Home() {
   };
 
   return (
-    <div className="px-20 py-20">
-      <h1 className="text-4xl underline font-bold text-white mb-8 text-center drop-shadow-md">Blogs</h1>
-      <div className="container mx-auto flex flex-col gap-10 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="px-20 py-24">
+      {/* <h1 className="text-4xl underline font-bold text-white mb-8 text-center drop-shadow-md">Blogs</h1> */}
+      <div className="container mx-auto flex flex-col gap-6 flex-wrap justify-center items-center">
         {posts.map((post) => (
           <PostCard key={post._id} post={post} onDelete={handleDelete} />
         ))}

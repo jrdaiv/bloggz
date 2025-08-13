@@ -9,10 +9,11 @@ import {
   MenuList,
   Navbar,
 } from "@material-tailwind/react";
-import {  useState } from "react";
+import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import DefaultProfilePic from "/public/Profilepic.webp";
 import { User } from "@/types";
+import bloggzLogo from "../../public/Bloggz.svg";
 
 // const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -31,39 +32,42 @@ export default function NavigationBar() {
 
   return (
     <Navbar
-      className="mx-auto bg-transparent/10 backdrop-blur-md w-full flex items-center justify-between px-4 py-3 shadow-md"
+      className="mx-auto bg-transparent/10 backdrop-blur-md w-full flex items-center h-28 shadow-md"
       placeholder={undefined}
       onPointerEnterCapture={undefined}
       onPointerLeaveCapture={undefined}
     >
-      <div className="container flex items-center mr-auto px-4 py-3 ">
+      <div className="flex items-center justify-between w-full px-4">
+        {/* Left placeholder (optional) */}
+        <div className=""></div>
+
         {/* Logo or Placeholder */}
-        <div className="">
-          <Link
-            to={isLoggedIn ? "/home" : "/"}
-            className="text-4xl font-bold text-white drop-shadow-md outline-4 outline-black"
-          >
-            Bloggz
-          </Link>
+        <div className="flex justify-center sm:justify-start flex-1 h-full">
+          {isLoggedIn ? (
+            <Link className="flex items-center" to="/home">
+              <img
+                src={bloggzLogo}
+                alt="Bloggz Logo"
+                className="w-[190px] h-[190px] min-h-[190px]"
+              />
+            </Link>
+          ) : (
+            <Link to="/">
+              <img
+                src={bloggzLogo}
+                alt="Bloggz Logo"
+                className="w-[190px] h-[190px]"
+              />
+            </Link>
+          )}
         </div>
 
         {/* Right-aligned Buttons */}
-        <div className="flex ml-auto items-center gap-4">
+        <div className="flex items-center justify-end w-[190px] gap-4">
           {isLoggedIn ? (
             <>
-              <Link to="/create">
-                <Button
-                  className="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-md drop-shadow-md"
-                  placeholder={undefined}
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                >
-                  Create Post
-                </Button>
-              </Link>
-
-              <Menu>
-                <MenuHandler>
+              <Menu >
+                <MenuHandler >
                   <Avatar
                     variant="circular"
                     alt={user?.username}
@@ -74,14 +78,26 @@ export default function NavigationBar() {
                     onPointerLeaveCapture={undefined}
                   />
                 </MenuHandler>
+
                 <MenuList
                   placeholder={undefined}
                   onPointerEnterCapture={undefined}
                   onPointerLeaveCapture={undefined}
                 >
+                  <Link to="/create">
+                    <MenuItem
+                      className="text-black font-bold rounded-md drop-shadow-md"
+                      placeholder={undefined}
+                      onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}
+                    >
+                      Create Post
+                    </MenuItem>
+                  </Link>
+
                   <Link to="/profile">
                     <MenuItem
-                    className="hover:bg-gray-300 text-black font-bold"
+                      className="drop-shadow-md text-black font-bold"
                       placeholder={undefined}
                       onPointerEnterCapture={undefined}
                       onPointerLeaveCapture={undefined}
@@ -89,6 +105,7 @@ export default function NavigationBar() {
                       View Profile
                     </MenuItem>
                   </Link>
+
                   <Button
                     onClick={handleLogout}
                     className="bg-red-600 hover:bg-red-700 text-black font-semibold w-full p-[-10px] rounded-md drop-shadow-md mt-2"
@@ -97,7 +114,7 @@ export default function NavigationBar() {
                     onPointerLeaveCapture={undefined}
                   >
                     <MenuItem
-                    className="text-white font-bold hover:bg-red-600 hover:text-white"
+                      className="text-white font-bold hover:bg-red-600 hover:text-white"
                       placeholder={undefined}
                       onPointerEnterCapture={undefined}
                       onPointerLeaveCapture={undefined}
@@ -112,7 +129,7 @@ export default function NavigationBar() {
             !isAuthPage && (
               <Link to="/auth">
                 <Button
-                  className="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-md drop-shadow-md"
+                  className="bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md drop-shadow-md"
                   placeholder={undefined}
                   onPointerEnterCapture={undefined}
                   onPointerLeaveCapture={undefined}

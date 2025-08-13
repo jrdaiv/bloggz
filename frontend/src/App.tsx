@@ -8,21 +8,18 @@ import Auth from "./pages/Auth";
 import EditPost from "./components/EditPost";
 import Profile from "./pages/Profile";
 
-
-
 function App() {
   return (
     <>
-    <NavigationBar />
-    {/* <Home /> */}
-    <Routes>
-      <Route path="/" element={ <LandingPage /> } />
-      <Route path="/home" element={ <Home /> } />
-      <Route path="/create" element={ <CreatePost /> } />
-      <Route path="/auth" element={ <Auth /> } />
-      <Route path="/edit/:id" element={ <EditPost /> } />
-      <Route path="/profile" element={ <Profile /> } />
-    </Routes>
+      <NavigationBar />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/create" element={<CreatePost />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/edit/:id" element={<EditPost />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
     </>
   );
 }

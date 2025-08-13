@@ -3,10 +3,10 @@ import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 
 export default function LandingPage() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
-    <div className="min-h-screen flex items-center justify-center bg-transparent px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20">
-      <div className="text-center space-y-8 bg-transparent backdrop-blur-lg p-8 sm:p-10 rounded-xl border border-white/30 max-w-xl w-full">
+    <div className="flex items-center justify-center bg-transparent/10 px-4 pt-24">
+      <div className="text-center space-y-8 bg-transparent/10 backdrop-blur-lg p-8 sm:p-10 rounded-xl border border-white/30 max-w-xl w-full">
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white drop-shadow-lg">
           Welcome to Bloggz
         </h1>

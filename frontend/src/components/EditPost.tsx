@@ -79,7 +79,7 @@ const EditPost = () => {
   };
 
   return (
-    <div className="flex items-center justify-center bg-transparent/10 pt-24">
+    <div className="flex items-center justify-center bg-transparent/10 pt-28">
 
       <form
         onSubmit={handleUpdate}

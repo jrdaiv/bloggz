@@ -1,10 +1,7 @@
 // src/components/PostCard.tsx
-import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-} from "@material-tailwind/react";
+import { User } from "@/types";
+import { Button, Card, CardBody, CardFooter } from "@material-tailwind/react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface Post {
@@ -20,9 +17,11 @@ interface PostCardProps {
   onDelete?: (id: string) => void;
 }
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 export default function PostCard({ post, onDelete }: PostCardProps) {
   const navigate = useNavigate();
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const [user] = useState<User | null>(null);
 
   const handleEdit = (_id: string) => {
     console.log("Navigating to:", `/edit/${post._id}`);
@@ -58,7 +57,7 @@ export default function PostCard({ post, onDelete }: PostCardProps) {
   };
 
   return (
-    <div className="w-full bg-transparent/10">
+    <div className="w-full max-w-full bg-transparent/10">
       <Card
         className="bg-transparent/10 backdrop-blur-md border transition-transform hover:scale-105 border-white/60 rounded-lg shadow-lg"
         placeholder={undefined}
@@ -77,22 +76,24 @@ export default function PostCard({ post, onDelete }: PostCardProps) {
           onPointerLeaveCapture={undefined}
         >
           <p className="mb-2">{post.content.substring(0, 1000)}</p>
-          <p className="text-sm">
-            - {post.author} on {new Date(post.createdAt).toLocaleDateString()}
-          </p>
         </CardBody>
 
         {/* Footer with Edit and Delete buttons */}
         <CardFooter
-          className="p-4 flex justify-end gap-2 border-t border-white/20"
+          className="p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-2 border-t border-white/20 w-full"
           placeholder={undefined}
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
         >
+          <p className="text-sm text-white sm:order-none">
+            - {user?.avatarUrl} {post.author} on {new Date(post.createdAt).toLocaleDateString()}
+          </p>
+
           {/* Buttons for Edit and Delete actions */}
-          <Button
+          <div className="flex flex-col sm:flex-row sm:ml-auto gap-2 w-full sm:w-auto ">
+            <Button
             onClick={() => handleEdit(post._id)}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md drop-shadow-md"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md drop-shadow-md sm:w-auto"
             placeholder={undefined}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
@@ -102,14 +103,17 @@ export default function PostCard({ post, onDelete }: PostCardProps) {
 
           <Button
             onClick={() => handleDelete(post._id)}
-            className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-md drop-shadow-md"
+            className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-md drop-shadow-md sm:w-auto"
             placeholder={undefined}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           >
             Delete
           </Button>
+          </div>
+
         </CardFooter>
+
       </Card>
     </div>
   );
