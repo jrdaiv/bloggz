@@ -11,9 +11,9 @@ import {
 } from "@material-tailwind/react";
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import DefaultProfilePic from "/public/Profilepic.webp";
+import DefaultProfilePic from "/Profilepic.webp";
 import { User } from "@/types";
-import bloggzLogo from "../../public/Bloggz.svg";
+import bloggzLogo from "/Bloggz.svg";
 
 // const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
