@@ -5,7 +5,7 @@ import connectDB from "./config/db";
 import authRoutes from "./routes/auth";
 import postRoutes from "./routes/posts";
 import userRoutes from "./routes/user";
-// import profileRoutes from "./routes/user";
+import commentRoutes from "./routes/Comment";
 
 dotenv.config();
 
@@ -28,6 +28,7 @@ app.use(express.json());
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
+app.use("/api/comments", commentRoutes);
 
 app.use((req, res, next) => {
   console.log(`[INCOMING] ${req.method} ${req.url}`);
