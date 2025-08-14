@@ -1,4 +1,4 @@
-// src/routes/Comment.ts
+// src/routes/comment.ts
 import express from 'express';
 import Comment from '../models/Comment';
 import User from '../models/User';

@@ -3,6 +3,7 @@ import { User } from "@/types";
 import { Button, Card, CardBody, CardFooter } from "@material-tailwind/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import CommentSection from "./CommentSection";
 
 interface Post {
   _id: string;
@@ -86,7 +87,7 @@ export default function PostCard({ post, onDelete }: PostCardProps) {
           onPointerLeaveCapture={undefined}
         >
           <p className="text-sm text-white sm:order-none">
-            - {user?.avatarUrl} {post.author} on {new Date(post.createdAt).toLocaleDateString()}
+            - {post.author} on {new Date(post.createdAt).toLocaleDateString()}
           </p>
 
           {/* Buttons for Edit and Delete actions */}
@@ -111,8 +112,10 @@ export default function PostCard({ post, onDelete }: PostCardProps) {
             Delete
           </Button>
           </div>
+          
 
         </CardFooter>
+        <CommentSection postId={post._id} isLoggedIn={user?._id !== undefined} token={localStorage.getItem("token") || ""} />
 
       </Card>
     </div>

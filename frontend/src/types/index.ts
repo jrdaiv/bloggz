@@ -22,3 +22,12 @@ export interface Post {
   author: string;
   createdAt: string;
 }
+
+export interface Comment {
+  _id: string;
+  postId: string;
+  author: string;
+  content: string;
+  createdAt: string;
+  userId: string;
+}
