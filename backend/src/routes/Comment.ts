@@ -63,4 +63,3 @@ router.delete('/comments/:id', authMiddleware, async (req, res) => {
 });
 
 export default router;
-
