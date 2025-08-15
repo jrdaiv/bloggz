@@ -113,7 +113,6 @@ export default function PostCard({ post, onDelete }: PostCardProps) {
           </Button>
           </div>
           
-
         </CardFooter>
         <CommentSection postId={post._id} />
 
