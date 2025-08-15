@@ -71,10 +71,6 @@ router.delete('/:id', auth_1.default, (req, res) => __awaiter(void 0, void 0, vo
             console.log("Comment not found in DB for id:", id);
             return res.status(404).json({ message: "Comment not found" });
         }
-        console.log("🔍 Comparing IDs:");
-        console.log("Comment.userId (raw):", comment.userId);
-        console.log("Comment belongs to userId:", comment.userId.toString());
-        console.log("Current logged-in userId:", req.user.id);
         if (comment.userId.toString() !== req.user.id) {
             console.log("User not authorized to delete this comment.");
             return res.status(403).json({ message: "You are not authorized to delete this comment" });
