@@ -10,7 +10,7 @@ const db_1 = __importDefault(require("./config/db"));
 const auth_1 = __importDefault(require("./routes/auth"));
 const posts_1 = __importDefault(require("./routes/posts"));
 const user_1 = __importDefault(require("./routes/user"));
-// import profileRoutes from "./routes/user";
+const comment_1 = __importDefault(require("./routes/comment"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 (0, db_1.default)();
@@ -23,14 +23,10 @@ app.use((0, cors_1.default)({
     origin: allowedOrigins,
 }));
 app.use(express_1.default.json());
+app.use("/api/comments", comment_1.default);
 app.use("/api/user", user_1.default);
 app.use("/api/auth", auth_1.default);
 app.use("/api/posts", posts_1.default);
-// try {
-//   app.use("/api/profile", profileRoutes);
-// } catch (err) {
-//   console.error("Failed to load profileRoutes:", err);
-// }
 app.use((req, res, next) => {
     console.log(`[INCOMING] ${req.method} ${req.url}`);
     next();

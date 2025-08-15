@@ -99,7 +99,7 @@ export default function PostCard({ post, onDelete }: PostCardProps) {
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           >
-            Edit
+            Edit Post
           </Button>
 
           <Button
@@ -109,13 +109,13 @@ export default function PostCard({ post, onDelete }: PostCardProps) {
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           >
-            Delete
+            Delete Post
           </Button>
           </div>
           
 
         </CardFooter>
-        <CommentSection postId={post._id} isLoggedIn={user?._id !== undefined} token={localStorage.getItem("token") || ""} />
+        <CommentSection postId={post._id} />
 
       </Card>
     </div>
