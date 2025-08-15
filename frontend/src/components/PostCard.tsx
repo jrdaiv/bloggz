@@ -1,7 +1,5 @@
 // src/components/PostCard.tsx
-import { User } from "@/types";
 import { Button, Card, CardBody, CardFooter } from "@material-tailwind/react";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CommentSection from "./CommentSection";
 
@@ -22,7 +20,6 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function PostCard({ post, onDelete }: PostCardProps) {
   const navigate = useNavigate();
-  const [user] = useState<User | null>(null);
 
   const handleEdit = (_id: string) => {
     console.log("Navigating to:", `/edit/${post._id}`);
